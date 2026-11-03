@@ -1,0 +1,72 @@
+[
+  {
+    "id": "pulang",
+    "title": "Belajar pulang dengan cara yang baru",
+    "category": "Perjalanan",
+    "date": "2025-10-12",
+    "readingTime": 5,
+    "cover": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=1200&q=85",
+    "excerpt": "Ada perjalanan yang tidak membawa kita jauh. Kadang, ia hanya mengantar kita kembali—dengan pandangan yang sedikit berbeda.",
+    "body": [
+      "Ada perjalanan yang tidak membawa kita jauh. Kadang, ia hanya mengantar kita kembali—dengan pandangan yang sedikit berbeda. Perjalanan terakhir itu mengingatkanku bahwa pulang bukan selalu soal alamat.",
+      "Pagi-pagi sekali, jalan masih berkabut. Aku berjalan tanpa tujuan yang pasti, berhenti ketika menemukan warung kecil, lalu duduk cukup lama untuk menghabiskan secangkir teh. Tidak ada hal besar yang terjadi. Mungkin justru itu yang membuatnya terasa utuh.",
+      "Sejak hari itu aku mencoba pulang dengan lebih pelan. Menyapa hal-hal yang biasanya terlewat: suara kipas di ruang tengah, obrolan sebentar dengan tetangga, dan cahaya sore di jendela. Ternyata rumah sudah menunggu di sana."
+    ]
+  },
+  {
+    "id": "ritual",
+    "title": "Ritual kecil di pagi yang tenang",
+    "category": "Keseharian",
+    "date": "2025-09-28",
+    "readingTime": 3,
+    "cover": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=85",
+    "excerpt": "Air mendidih, cahaya masuk lewat jendela, dan lima menit tanpa melihat layar. Ternyata itu sudah cukup.",
+    "body": [
+      "Air mendidih, cahaya masuk lewat jendela, dan lima menit tanpa melihat layar. Ternyata itu sudah cukup untuk memulai hari dengan perasaan yang berbeda.",
+      "Dulu aku berpikir pagi yang baik harus dimulai dengan daftar panjang dan rencana yang rapi. Sekarang aku lebih suka memberi ruang sedikit. Membuka jendela, menyiram tanaman, lalu membiarkan kepala bangun pelan-pelan.",
+      "Barangkali tenang bukan sesuatu yang perlu dicari jauh-jauh. Bisa jadi ia ada di antara aroma kopi dan halaman pertama buku yang belum selesai kubaca."
+    ]
+  },
+  {
+    "id": "catatan",
+    "title": "Tentang tidak harus tahu semuanya",
+    "category": "Catatan",
+    "date": "2025-09-14",
+    "readingTime": 4,
+    "cover": "https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1200&q=85",
+    "excerpt": "Mungkin kita boleh berjalan dulu, bahkan ketika peta di tangan belum menunjukkan semua jalan.",
+    "body": [
+      "Mungkin kita boleh berjalan dulu, bahkan ketika peta di tangan belum menunjukkan semua jalan. Ada rasa lega saat mengingat bahwa tidak semua jawaban perlu ditemukan hari ini.",
+      "Belakangan aku belajar menerima beberapa tanda tanya. Tentang pekerjaan, tentang tempat tinggal, tentang hal-hal yang sedang tumbuh diam-diam. Tidak tahu bukan berarti tersesat; kadang itu hanya berarti kita sedang di tengah perjalanan.",
+      "Jadi untuk sekarang, aku akan terus berjalan. Satu langkah, satu hari, satu catatan kecil pada satu waktu."
+    ]
+  },
+  {
+    "id": "hujan",
+    "title": "Kota ini lebih ramah setelah hujan",
+    "category": "Keseharian",
+    "date": "2025-08-02",
+    "readingTime": 4,
+    "cover": "",
+    "excerpt": "Setelah hujan, kota seperti menarik napas panjang. Suara kendaraan terdengar lebih jauh, udara sedikit lebih ringan.",
+    "body": [
+      "Setelah hujan, kota seperti menarik napas panjang. Suara kendaraan terdengar lebih jauh, udara sedikit lebih ringan, dan lampu-lampu di jalan memantul di genangan.",
+      "Aku pulang berjalan kaki sore itu. Tidak buru-buru, juga tidak terlalu memikirkan tujuan. Di depan toko roti, seseorang membagikan payungnya kepada orang asing. Kejadian kecil yang mungkin terlupakan besok, tapi membuat langkahku terasa hangat.",
+      "Mungkin kota selalu punya sisi ramah. Hanya saja kadang kita perlu berjalan sedikit lebih pelan untuk melihatnya."
+    ]
+  },
+  {
+    "id": "kebun",
+    "title": "Catatan dari kebun belakang rumah",
+    "category": "Catatan",
+    "date": "2025-07-19",
+    "readingTime": 3,
+    "cover": "",
+    "excerpt": "Tomat pertama akhirnya merah. Tidak banyak, hanya dua buah kecil, tapi aku tetap merasa seperti baru menerima kabar baik.",
+    "body": [
+      "Tomat pertama akhirnya merah. Tidak banyak, hanya dua buah kecil, tapi aku tetap merasa seperti baru menerima kabar baik.",
+      "Merawat kebun mengajariku ritme yang berbeda. Ada hal-hal yang bisa dibantu tumbuh, tapi tidak bisa dipaksa untuk tumbuh lebih cepat. Kita menyiram, menunggu, lalu mencoba lagi besok.",
+      "Di halaman belakang yang sempit itu, aku sedang belajar hal yang sama untuk diriku sendiri."
+    ]
+  }
+]

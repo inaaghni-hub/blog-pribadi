@@ -1,15 +1,142 @@
-﻿const articles={
-  pulang:{category:'PERJALANAN',title:'Belajar pulang dengan cara yang baru',date:'12 OKTOBER 2025 · 5 MENIT BACA',body:['Ada perjalanan yang tidak membawa kita jauh. Kadang, ia hanya mengantar kita kembali—dengan pandangan yang sedikit berbeda. Perjalanan terakhir itu mengingatkanku bahwa pulang bukan selalu soal alamat.','Pagi-pagi sekali, jalan masih berkabut. Aku berjalan tanpa tujuan yang pasti, berhenti ketika menemukan warung kecil, lalu duduk cukup lama untuk menghabiskan secangkir teh. Tidak ada hal besar yang terjadi. Mungkin justru itu yang membuatnya terasa utuh.','Sejak hari itu aku mencoba pulang dengan lebih pelan. Menyapa hal-hal yang biasanya terlewat: suara kipas di ruang tengah, obrolan sebentar dengan tetangga, dan cahaya sore di jendela. Ternyata rumah sudah menunggu di sana.']},
-  ritual:{category:'KESEHARIAN',title:'Ritual kecil di pagi yang tenang',date:'28 SEPTEMBER 2025 · 3 MENIT BACA',body:['Air mendidih, cahaya masuk lewat jendela, dan lima menit tanpa melihat layar. Ternyata itu sudah cukup untuk memulai hari dengan perasaan yang berbeda.','Dulu aku berpikir pagi yang baik harus dimulai dengan daftar panjang dan rencana yang rapi. Sekarang aku lebih suka memberi ruang sedikit. Membuka jendela, menyiram tanaman, lalu membiarkan kepala bangun pelan-pelan.','Barangkali tenang bukan sesuatu yang perlu dicari jauh-jauh. Bisa jadi ia ada di antara aroma kopi dan halaman pertama buku yang belum selesai kubaca.']},
-  catatan:{category:'CATATAN',title:'Tentang tidak harus tahu semuanya',date:'14 SEPTEMBER 2025 · 4 MENIT BACA',body:['Mungkin kita boleh berjalan dulu, bahkan ketika peta di tangan belum menunjukkan semua jalan. Ada rasa lega saat mengingat bahwa tidak semua jawaban perlu ditemukan hari ini.','Belakangan aku belajar menerima beberapa tanda tanya. Tentang pekerjaan, tentang tempat tinggal, tentang hal-hal yang sedang tumbuh diam-diam. Tidak tahu bukan berarti tersesat; kadang itu hanya berarti kita sedang di tengah perjalanan.','Jadi untuk sekarang, aku akan terus berjalan. Satu langkah, satu hari, satu catatan kecil pada satu waktu.']},
-  hujan:{category:'KESEHARIAN',title:'Kota ini lebih ramah setelah hujan',date:'02 AGUSTUS 2025 · 4 MENIT BACA',body:['Setelah hujan, kota seperti menarik napas panjang. Suara kendaraan terdengar lebih jauh, udara sedikit lebih ringan, dan lampu-lampu di jalan memantul di genangan.','Aku pulang berjalan kaki sore itu. Tidak buru-buru, juga tidak terlalu memikirkan tujuan. Di depan toko roti, seseorang membagikan payungnya kepada orang asing. Kejadian kecil yang mungkin terlupakan besok, tapi membuat langkahku terasa hangat.','Mungkin kota selalu punya sisi ramah. Hanya saja kadang kita perlu berjalan sedikit lebih pelan untuk melihatnya.']},
-  kebun:{category:'CATATAN',title:'Catatan dari kebun belakang rumah',date:'19 JULI 2025 · 3 MENIT BACA',body:['Tomat pertama akhirnya merah. Tidak banyak, hanya dua buah kecil, tapi aku tetap merasa seperti baru menerima kabar baik.','Merawat kebun mengajariku ritme yang berbeda. Ada hal-hal yang bisa dibantu tumbuh, tapi tidak bisa dipaksa untuk tumbuh lebih cepat. Kita menyiram, menunggu, lalu mencoba lagi besok.','Di halaman belakang yang sempit itu, aku sedang belajar hal yang sama untuk diriku sendiri.']}
-};
-document.querySelectorAll('.photo').forEach(photo=>photo.addEventListener('click',()=>{const box=document.querySelector('.lightbox');box.querySelector('img').src=photo.dataset.photo;box.querySelector('img').alt=photo.dataset.caption;box.querySelector('p').textContent=photo.dataset.caption;box.showModal()}));
-document.querySelector('.lightbox-close').addEventListener('click',()=>document.querySelector('.lightbox').close());
-document.querySelector('.lightbox').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.close()});
-document.querySelectorAll('[data-article]').forEach(link=>link.addEventListener('click',e=>{e.preventDefault();const article=articles[link.dataset.article];if(!article)return;const dialog=document.querySelector('.article-dialog');dialog.querySelector('.article-category').textContent=article.category;dialog.querySelector('h2').textContent=article.title;dialog.querySelector('.article-date').textContent=article.date;dialog.querySelector('.article-body').innerHTML=article.body.map(text=>`<p>${text}</p>`).join('');dialog.showModal()}));
-document.querySelector('.article-close').addEventListener('click',()=>document.querySelector('.article-dialog').close());
-document.querySelector('.article-dialog').addEventListener('click',e=>{if(e.target===e.currentTarget)e.currentTarget.close()});
-const search=document.querySelector('#search');search.addEventListener('input',()=>{const query=search.value.toLocaleLowerCase('id');let visible=0;document.querySelectorAll('.archive-row').forEach(row=>{const match=row.innerText.toLocaleLowerCase('id').includes(query);row.hidden=!match;if(match)visible++});document.querySelector('#empty-state').hidden=visible>0});
-const toggle=document.querySelector('.menu-toggle');toggle.addEventListener('click',()=>{const open=document.querySelector('.site-header').classList.toggle('menu-open');toggle.setAttribute('aria-expanded',String(open))});document.querySelectorAll('nav a').forEach(link=>link.addEventListener('click',()=>{document.querySelector('.site-header').classList.remove('menu-open');toggle.setAttribute('aria-expanded','false')}));
+﻿const BULAN = ['JANUARI','FEBRUARI','MARET','APRIL','MEI','JUNI','JULI','AGUSTUS','SEPTEMBER','OKTOBER','NOVEMBER','DESEMBER'];
+
+const esc = (s = '') => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const kategoriLabel = c => c ? String(c).charAt(0).toUpperCase() + String(c).slice(1) : '';
+
+function keTanggal(iso) {
+  const teks = String(iso || '');
+  let d = new Date(teks);
+  if (isNaN(d) && /^\d{4}-\d{2}-\d{2}$/.test(teks)) d = new Date(teks + 'T00:00:00');
+  return isNaN(d) ? null : d;
+}
+function tanggalPanjang(iso) {
+  const d = keTanggal(iso);
+  if (!d) return String(iso || '');
+  return `${d.getDate()} ${BULAN[d.getMonth()]} ${d.getFullYear()}`;
+}
+function tanggalPendek(iso) {
+  const d = keTanggal(iso);
+  if (!d) return String(iso || '');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  return `${dd}.${mm}.${String(d.getFullYear()).slice(-2)}`;
+}
+
+/* ---------- data tulisan ---------- */
+let ARTIKEL = {};
+
+async function muatTulisan() {
+  const res = await fetch('content/posts.json', { cache: 'no-store' });
+  if (!res.ok) throw new Error('content/posts.json tidak bisa dibaca');
+  const daftar = await res.json();
+  const urut = daftar.slice().sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  urut.forEach(p => { ARTIKEL[p.id] = p; });
+  return urut;
+}
+
+function kartuUtama(p) {
+  const tag = esc(String(p.category || '').toUpperCase());
+  const gambar = p.cover
+    ? `<div class="feature-image"><img src="${esc(p.cover)}" alt="${esc(p.title)}" loading="lazy"><span class="image-tag">${tag}</span></div>`
+    : `<div class="feature-image feature-image-empty"><span class="image-tag">${tag}</span></div>`;
+  return `<a class="feature-card" href="#artikel" data-article="${esc(p.id)}">
+      ${gambar}
+      <div class="feature-meta"><span>${tanggalPanjang(p.date)}</span><span>${esc(p.readingTime || 3)} MENIT BACA</span></div>
+      <h3>${esc(p.title)}</h3><p>${esc(p.excerpt || (p.body && p.body[0]) || '')}</p>
+      <span class="card-arrow">Baca cerita <span>↗</span></span>
+    </a>`;
+}
+
+function barisArsip(p) {
+  return `<a class="archive-row" href="#artikel" data-article="${esc(p.id)}">
+      <span class="archive-date">${tanggalPendek(p.date)}</span>
+      <span class="archive-title">${esc(p.title)}</span>
+      <span class="archive-category">${esc(kategoriLabel(p.category))}</span>
+      <span class="archive-arrow">↗</span>
+    </a>`;
+}
+
+function render(daftar) {
+  const grid = document.querySelector('.featured-grid');
+  if (grid) grid.innerHTML = daftar.slice(0, 3).map(kartuUtama).join('');
+
+  const arsip = document.querySelector('#archive-list');
+  if (arsip) arsip.innerHTML = daftar.map(barisArsip).join('');
+
+  const kosong = document.querySelector('#empty-state');
+  if (kosong) kosong.hidden = daftar.length > 0;
+}
+
+/* ---------- dialog artikel ---------- */
+function bukaArtikel(id) {
+  const article = ARTIKEL[id];
+  if (!article) return;
+  const dialog = document.querySelector('.article-dialog');
+  dialog.querySelector('.article-category').textContent = String(article.category || '').toUpperCase();
+  dialog.querySelector('h2').textContent = article.title;
+  dialog.querySelector('.article-date').textContent = `${tanggalPanjang(article.date)} · ${article.readingTime || 3} MENIT BACA`;
+  dialog.querySelector('.article-body').innerHTML = (article.body || []).map(t => `<p>${esc(t)}</p>`).join('');
+  dialog.showModal();
+}
+
+document.addEventListener('click', e => {
+  const pemicu = e.target.closest('[data-article]');
+  if (pemicu) {
+    e.preventDefault();
+    bukaArtikel(pemicu.dataset.article);
+  }
+});
+
+document.querySelector('.article-close').addEventListener('click', () => document.querySelector('.article-dialog').close());
+document.querySelector('.article-dialog').addEventListener('click', e => {
+  if (e.target === e.currentTarget) e.currentTarget.close();
+});
+
+/* ---------- galeri ---------- */
+document.querySelectorAll('.photo').forEach(photo => photo.addEventListener('click', () => {
+  const box = document.querySelector('.lightbox');
+  box.querySelector('img').src = photo.dataset.photo;
+  box.querySelector('img').alt = photo.dataset.caption;
+  box.querySelector('p').textContent = photo.dataset.caption;
+  box.showModal();
+}));
+document.querySelector('.lightbox-close').addEventListener('click', () => document.querySelector('.lightbox').close());
+document.querySelector('.lightbox').addEventListener('click', e => {
+  if (e.target === e.currentTarget) e.currentTarget.close();
+});
+
+/* ---------- pencarian ---------- */
+const search = document.querySelector('#search');
+search.addEventListener('input', () => {
+  const query = search.value.toLocaleLowerCase('id');
+  let visible = 0;
+  document.querySelectorAll('.archive-row').forEach(row => {
+    const match = row.textContent.toLocaleLowerCase('id').includes(query);
+    row.hidden = !match;
+    if (match) visible++;
+  });
+  document.querySelector('#empty-state').hidden = visible > 0;
+});
+
+/* ---------- menu seluler ---------- */
+const toggle = document.querySelector('.menu-toggle');
+toggle.addEventListener('click', () => {
+  const open = document.querySelector('.site-header').classList.toggle('menu-open');
+  toggle.setAttribute('aria-expanded', String(open));
+});
+document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', () => {
+  document.querySelector('.site-header').classList.remove('menu-open');
+  toggle.setAttribute('aria-expanded', 'false');
+}));
+
+/* ---------- jalan ---------- */
+muatTulisan()
+  .then(render)
+  .catch(err => {
+    console.error('Gagal memuat tulisan:', err);
+    const pesan = '<p class="empty-state">Tulisan gagal dimuat. Muat ulang halaman, atau periksa file content/posts.json.</p>';
+    const arsip = document.querySelector('#archive-list');
+    if (arsip) arsip.innerHTML = pesan;
+    const grid = document.querySelector('.featured-grid');
+    if (grid) grid.innerHTML = pesan;
+  });

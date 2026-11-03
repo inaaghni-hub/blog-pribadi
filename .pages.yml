@@ -1,0 +1,60 @@
+media:
+  input: assets/uploads
+  output: /assets/uploads
+
+content:
+  - name: posts
+    label: Tulisan
+    type: file
+    path: content/posts.json
+    format: json
+    list: true
+    fields:
+      - name: id
+        label: ID tulisan
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9-]+$"
+          message: "Pakai huruf kecil, angka, atau tanda hubung. Contoh: pulang, ritual, catatan."
+        options:
+          maxlength: 40
+      - name: title
+        label: Judul
+        type: string
+        required: true
+      - name: category
+        label: Kategori
+        type: select
+        required: true
+        options:
+          values:
+            - Perjalanan
+            - Keseharian
+            - Catatan
+      - name: date
+        label: Tanggal
+        type: date
+        required: true
+      - name: readingTime
+        label: Waktu baca (menit)
+        type: number
+        options:
+          min: 1
+          max: 60
+      - name: excerpt
+        label: Ringkasan
+        type: text
+        description: Tampil di kartu tulisan terbaru.
+        options:
+          maxlength: 220
+      - name: cover
+        label: Foto sampul
+        type: image
+        description: Boleh dikosongkan; kartu akan memakai latar warna.
+      - name: body
+        label: Isi tulisan
+        type: text
+        list: true
+        required: true
+        description: Satu paragraf per kotak. Tekan tombol tambah untuk paragraf baru.
